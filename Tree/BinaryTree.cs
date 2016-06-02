@@ -1,55 +1,51 @@
-﻿using System;
+﻿using BinaryTreeProj.Tree.NodeType;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BinaryTreeProj.Tree {
-    class BinaryTree {
-        protected int value = 0;
-        protected BinaryTree leftSubTree = null;
-        protected BinaryTree rightSubTree = null;
+    class BinaryTree<T> where T : NodeType<T> {
+        protected T value = default(T);
+        protected BinaryTree<T> leftSubTree = null;
+        protected BinaryTree<T> rightSubTree = null;
 
-        public int Value {
-            get { return value; }
-            set { this.value = value; }
-        }
-
-        public BinaryTree LeftSubTree {
+        public BinaryTree<T> LeftSubTree {
             get { return leftSubTree; }
             set { leftSubTree = value; }
         }
 
-        public BinaryTree RightSubTree {
+        public BinaryTree<T> RightSubTree {
             get { return rightSubTree; }
             set { rightSubTree = value; }
         }
 
-        public void insert(int val) {
-            if (val == value) {
+        public void insert(T val) {
+            if (value.Equals(val)) {
                 return;
             }
 
-            if (val < value) {
+            if (value.isLarger(val)) {
                 if (leftSubTree == null) {
-                    leftSubTree = new BinaryTree(val);
+                    leftSubTree = new BinaryTree<T>(val);
                 } else {
                     leftSubTree.insert(val);
                 }
             } else {
                 if (rightSubTree == null) {
-                    rightSubTree = new BinaryTree(val);
+                    rightSubTree = new BinaryTree<T>(val);
                 } else {
                     rightSubTree.insert(val);
                 }
             }
         }
 
-        public int lookUpLargest() {
+        public T lookUpLargest() {
             if (rightSubTree == null) {
-                return this.value;
+                return value;
             } else {
-                return this.rightSubTree.lookUpLargest();
+                return rightSubTree.lookUpLargest();
             }
         }
 
@@ -57,8 +53,6 @@ namespace BinaryTreeProj.Tree {
             int leftHeight = leftSubTree == null ? 0 : leftSubTree.getHeight();
             int rightHeight = rightSubTree == null ? 0 : rightSubTree.getHeight();
 
-            if ((leftHeight + rightHeight) == 0)
-                return 1;
             return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
         }
 
@@ -71,7 +65,7 @@ namespace BinaryTreeProj.Tree {
                 Console.Write("|-");
                 indent += "| ";
             }
-            Console.WriteLine(value);
+            Console.WriteLine(value.ToString());
 
             if (leftSubTree != null) {
                 leftSubTree.print(indent, rightSubTree == null);
@@ -81,7 +75,7 @@ namespace BinaryTreeProj.Tree {
             }
         }
 
-        public BinaryTree(int val) {
+        public BinaryTree(T val) {
             this.value = val;
         }
     }

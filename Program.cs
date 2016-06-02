@@ -1,4 +1,5 @@
 ﻿using BinaryTreeProj.Tree;
+using BinaryTreeProj.Tree.NodeType;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,18 +17,22 @@ namespace BinaryTreeProj {
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
 
-            int max = 100;
-            Random rnd = new Random();
-            BinaryTree tree = new BinaryTree(rnd.Next(0, max));
-            var data = Enumerable.Range(0, max).OrderBy(x => rnd.Next()).Take((int)(max / 2)).ToArray();
-
-            foreach (var i in data) {
-                tree.insert(i);
-            }
+            BinaryTree<IntNode> tree = createRandomIntTree(700, 0, 1000);
 
             tree.print("", true);
-            Console.WriteLine(tree.lookUpLargest());
+            Console.WriteLine(tree.lookUpLargest().ToString());
             Console.WriteLine(tree.getHeight());
+        }
+
+        public static BinaryTree<IntNode> createRandomIntTree(int nodeCount, int min, int max) {
+            Random rnd = new Random();
+            BinaryTree<IntNode> tree = new BinaryTree<IntNode>(new IntNode(rnd.Next(0, max)));
+            var data = Enumerable.Range(0, max).OrderBy(x => rnd.Next()).Take(nodeCount).ToArray();
+
+            foreach (var i in data) {
+                tree.insert(new IntNode(i));
+            }
+            return tree;
         }
     }
 }

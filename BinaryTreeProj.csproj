@@ -58,6 +58,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tree\BinaryTree.cs" />
+    <Compile Include="Tree\IntNode.cs" />
+    <Compile Include="Tree\NodeType.cs" />
+    <Compile Include="Tree\StringNode.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
