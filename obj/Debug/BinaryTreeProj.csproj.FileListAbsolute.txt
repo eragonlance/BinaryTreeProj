@@ -1,1 +1,8 @@
-c:\users\world\documents\visual studio 2015\Projects\BinaryTreeProj\BinaryTreeProj\bin\Debug\BinaryTreeProj.exe.config
+C:\Users\world\Documents\Visual Studio 2015\Projects\BinaryTreeProj\BinaryTreeProj\bin\Debug\BinaryTreeProj.exe.config
+C:\Users\world\Documents\Visual Studio 2015\Projects\BinaryTreeProj\BinaryTreeProj\bin\Debug\BinaryTreeProj.exe
+C:\Users\world\Documents\Visual Studio 2015\Projects\BinaryTreeProj\BinaryTreeProj\bin\Debug\BinaryTreeProj.pdb
+C:\Users\world\Documents\Visual Studio 2015\Projects\BinaryTreeProj\BinaryTreeProj\obj\Debug\BinaryTreeProj.csprojResolveAssemblyReference.cache
+C:\Users\world\Documents\Visual Studio 2015\Projects\BinaryTreeProj\BinaryTreeProj\obj\Debug\BinaryTreeProj.Properties.Resources.resources
+C:\Users\world\Documents\Visual Studio 2015\Projects\BinaryTreeProj\BinaryTreeProj\obj\Debug\BinaryTreeProj.csproj.GenerateResource.Cache
+C:\Users\world\Documents\Visual Studio 2015\Projects\BinaryTreeProj\BinaryTreeProj\obj\Debug\BinaryTreeProj.exe
+C:\Users\world\Documents\Visual Studio 2015\Projects\BinaryTreeProj\BinaryTreeProj\obj\Debug\BinaryTreeProj.pdb
