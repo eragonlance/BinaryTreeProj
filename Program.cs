@@ -17,19 +17,23 @@ namespace BinaryTreeProj {
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
 
-            BinaryTree<IntNode> tree = createRandomIntTree(40, 0, 50);
+            BinaryTree<IntNode> tree = createRandomIntTree(10, 0, 20);
 
             tree.print("", true);
-            //Console.WriteLine(tree.countLeafNodes());
-            //Console.WriteLine(tree.countNodesWithSingleSubtree());
-            //Console.WriteLine(tree.countNodesWithOnlyRightSubtree());
-            //Console.WriteLine(tree.countNodesWithOnlyLeftSubTree());
-            //Console.WriteLine(tree.countNodesWithBothSubTree());
-            //Console.WriteLine(tree.countNodes());
-            //Console.WriteLine(tree.countNodesOnDepth(3));
-            Console.WriteLine(tree.pathLength(new IntNode(30)));
-            //Console.WriteLine(tree.lookUpLargest().ToString());
-            //Console.WriteLine(tree.getHeight());
+            var res = tree.getAllValues();
+            foreach (var i in res) {
+                Console.Write(i + ' ');
+            }
+            Console.WriteLine();
+            res = tree.getAllValues(NLRVisitor.get());
+            foreach (var i in res) {
+                Console.Write(i + ' ');
+            }
+            res = tree.getAllValues(LRNVisitor.get());
+            Console.WriteLine();
+            foreach (var i in res) {
+                Console.Write(i + ' ');
+            }
         }
 
         public static BinaryTree<IntNode> createRandomIntTree(int nodeCount, int min, int max) {

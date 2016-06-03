@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BinaryTreeProj.Tree.INodeType {
-    class IntNode : NodeType<IntNode> {
+    class IntNode : INodeType<IntNode> {
         private int data;
 
         public bool Equals(IntNode node) {

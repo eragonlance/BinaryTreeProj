@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BinaryTreeProj.Tree.NodeTypes {
-    class StringNode : NodeType<StringNode> {
+    class StringNode : INodeType<StringNode> {
         protected String data;
 
         public bool Equals(StringNode node) {

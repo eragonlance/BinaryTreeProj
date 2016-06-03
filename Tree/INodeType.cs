@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BinaryTreeProj.Tree.INodeType {
-    interface NodeType<T> : IEquatable<T> where T : NodeType<T> {
+    interface INodeType<T> : IEquatable<T> where T : INodeType<T> {
         bool isLarger(T node);
         String ToString();
     }
