@@ -1,4 +1,4 @@
-﻿using BinaryTreeProj.Tree.NodeType;
+﻿using BinaryTreeProj.Tree.INodeType;
 using System;
 using System.Collections.Generic;
 using System.Linq;

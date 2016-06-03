@@ -1,5 +1,5 @@
 ﻿using BinaryTreeProj.Tree;
-using BinaryTreeProj.Tree.NodeType;
+using BinaryTreeProj.Tree.INodeType;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,22 +17,26 @@ namespace BinaryTreeProj {
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
 
-            BinaryTree<IntNode> tree = createRandomIntTree(700, 0, 1000);
+            BinaryTree<IntNode> tree = createRandomIntTree(40, 0, 50);
 
             tree.print("", true);
-            Console.WriteLine(tree.lookUpLargest().ToString());
-            Console.WriteLine(tree.getHeight());
+            //Console.WriteLine(tree.countLeafNodes());
+            //Console.WriteLine(tree.countNodesWithSingleSubtree());
+            //Console.WriteLine(tree.countNodesWithOnlyRightSubtree());
+            //Console.WriteLine(tree.countNodesWithOnlyLeftSubTree());
+            //Console.WriteLine(tree.countNodesWithBothSubTree());
+            //Console.WriteLine(tree.countNodes());
+            //Console.WriteLine(tree.countNodesOnDepth(3));
+            Console.WriteLine(tree.pathLength(new IntNode(30)));
+            //Console.WriteLine(tree.lookUpLargest().ToString());
+            //Console.WriteLine(tree.getHeight());
         }
 
         public static BinaryTree<IntNode> createRandomIntTree(int nodeCount, int min, int max) {
             Random rnd = new Random();
-            BinaryTree<IntNode> tree = new BinaryTree<IntNode>(new IntNode(rnd.Next(0, max)));
-            var data = Enumerable.Range(0, max).OrderBy(x => rnd.Next()).Take(nodeCount).ToArray();
+            var data = Enumerable.Range(0, max).OrderBy(x => rnd.Next()).Take(nodeCount);
 
-            foreach (var i in data) {
-                tree.insert(new IntNode(i));
-            }
-            return tree;
+            return new BinaryTree<IntNode>(IntNode.convert(data));
         }
     }
 }
