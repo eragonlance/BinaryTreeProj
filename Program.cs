@@ -17,16 +17,18 @@ namespace BinaryTreeProj {
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
 
-            BinaryTree<IntNode> tree = createRandomIntTree(10, 0, 20);
-
+            BinaryTree<IntNode> tree = createRandomIntTree(0, 0, 30);
+            tree.print();
+            tree.remove(new IntNode(20));
             tree.print();
         }
 
         public static BinaryTree<IntNode> createRandomIntTree(int nodeCount, int min, int max) {
             Random rnd = new Random();
             var data = Enumerable.Range(0, max).OrderBy(x => rnd.Next()).Take(nodeCount).ToArray();
+            int[] data1 = new int[] { 20, 10, 30, 5, 15, 25, 35, 23, 36, 27 };
 
-            return new BinaryTree<IntNode>(IntNode.convert(data));
+            return new BinaryTree<IntNode>(IntNode.convert(data1));
         }
     }
 }

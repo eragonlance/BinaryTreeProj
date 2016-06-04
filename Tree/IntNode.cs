@@ -8,20 +8,20 @@ namespace BinaryTreeProj.Tree.INodeType {
     class IntNode : INodeType<IntNode> {
         private int data;
 
-        public bool Equals(IntNode node) {
-            return data == node.data;
+        public bool Equals(IntNode value) {
+            return data == value.data;
         }
 
-        public bool isLarger(IntNode node) {
-            return data > node.data;
+        public bool isLarger(IntNode value) {
+            return data > value.data;
         }
 
         public override string ToString() {
             return data.ToString();
         }
 
-        public IntNode(int data) {
-            this.data = data;
+        public IntNode(int value) {
+            this.data = value;
         }
 
         public static IEnumerable<IntNode> convert(IEnumerable<int> data) {

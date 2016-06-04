@@ -86,8 +86,41 @@ namespace BinaryTreeProj.Tree {
             return isEmpty() ? default(T) : root.findSmallest();
         }
 
-        bool isEmpty() {
+        ///<summary>find node with the largest value on left subtree </summary>
+        public T findLeftLargest() {
+            return isEmpty() || root.LeftNode == null ? default(T) : root.LeftNode.findLargest();
+        }
+
+        ///<summary>find node with the smallest value on right subtree</summary>
+        public T findRightSmallest() {
+            return isEmpty() || root.RightNode == null ? default(T) : root.RightNode.findSmallest();
+        }
+
+        ///<summary>remove a node with designated value</summary>
+        public bool remove(T val) {
+            if (isEmpty()) {
+                return false;
+            }
+
+            BinaryNode<T> nodeToReplace = null;
+            bool isRemoved = false;
+            bool existVal = root.remove(val, ref nodeToReplace, ref isRemoved);
+
+            if (existVal && !isRemoved) {
+                root = nodeToReplace;
+            }
+
+            return existVal;
+        }
+
+        ///<summary>check if tree is empty</summary>
+        public bool isEmpty() {
             return root == null;
+        }
+
+        ///<summary>empty this tree</summary>
+        public void clear() {
+            root = null;
         }
 
         public void print() {

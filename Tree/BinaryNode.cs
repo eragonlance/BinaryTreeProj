@@ -41,12 +41,8 @@ namespace BinaryTreeProj.Tree {
             }
         }
 
-        ///<summary>get all values of this tree in String, visit L-N-R by default</summary>
-        public IEnumerable<String> getAllValues(BinTreeVisitor visitor = null) {
-            if (isEmpty()) {
-                return Enumerable.Empty<String>();
-            }
-
+        ///<summary>get all values of this tree in String</summary>
+        public IEnumerable<String> getAllValues(BinTreeVisitor visitor) {
             if (visitor == null) {
                 visitor = LNRVisitor.get();
             }
@@ -54,22 +50,22 @@ namespace BinaryTreeProj.Tree {
             return visitor.visit(this).Select(x => x.ToString());
         }
 
-        public bool insert(T node) {
-            if (this.value.Equals(node)) {
+        public bool insert(T val) {
+            if (this.value.Equals(val)) {
                 return false;
             }
 
-            if (this.value.isLarger(node)) {
+            if (this.value.isLarger(val)) {
                 if (LeftNode == null) {
-                    LeftNode = new BinaryNode<T>(node);
+                    LeftNode = new BinaryNode<T>(val);
                 } else {
-                    LeftNode.insert(node);
+                    LeftNode.insert(val);
                 }
             } else {
                 if (RightNode == null) {
-                    RightNode = new BinaryNode<T>(node);
+                    RightNode = new BinaryNode<T>(val);
                 } else {
-                    RightNode.insert(node);
+                    RightNode.insert(val);
                 }
             }
 
@@ -148,17 +144,17 @@ namespace BinaryTreeProj.Tree {
         }
 
         ///<summary>length of the path from root node to "n" node</summary>
-        public int pathLength(T n, int recursiveDepth = 0) {
-            if (Value.Equals(n)) {
+        public int pathLength(T val, int recursiveDepth = 0) {
+            if (Value.Equals(val)) {
                 return recursiveDepth;
             }
 
-            if (Value.isLarger(n) && LeftNode != null) {
-                return LeftNode.pathLength(n, recursiveDepth + 1);
+            if (Value.isLarger(val) && LeftNode != null) {
+                return LeftNode.pathLength(val, recursiveDepth + 1);
             }
 
-            if (!Value.isLarger(n) && RightNode != null) {
-                return RightNode.pathLength(n, recursiveDepth + 1);
+            if (!Value.isLarger(val) && RightNode != null) {
+                return RightNode.pathLength(val, recursiveDepth + 1);
             }
 
             return -1;
@@ -182,8 +178,48 @@ namespace BinaryTreeProj.Tree {
             return leftNode.findSmallest();
         }
 
-        public bool isEmpty() {
-            return Equals(value, default(T));
+        ///<summary>remove a node with designated value</summary>
+        public bool remove(T val, ref BinaryNode<T> nodeToReplace, ref bool isRemoved) {
+            if (value.Equals(val)) {
+                if (rightNode == null) {
+                    nodeToReplace = leftNode;
+                } else {
+                    bool tmp = false;
+                    value = rightNode.removeSmallest(ref tmp);
+
+                    if (!tmp) {
+                        rightNode = null;
+                    }
+
+                    nodeToReplace = this;
+                }
+
+                return true;
+            }
+
+            if (value.isLarger(val) && leftNode != null) {
+                bool existVal = leftNode.remove(val, ref nodeToReplace, ref isRemoved);
+
+                if (existVal && !isRemoved) {
+                    leftNode = nodeToReplace;
+                    isRemoved = true;
+                }
+
+                return existVal;
+            }
+
+            if(!value.isLarger(val) && rightNode != null) {
+                bool existVal = rightNode.remove(val, ref nodeToReplace, ref isRemoved);
+
+                if (existVal && !isRemoved) {
+                    rightNode = nodeToReplace;
+                    isRemoved = true;
+                }
+
+                return existVal;
+            }
+
+            return false;
         }
 
         public void print(string indent, bool last) {
@@ -205,8 +241,24 @@ namespace BinaryTreeProj.Tree {
             }
         }
 
-        public BinaryNode(T node) {
-            this.value = node;
+        public BinaryNode(T val) {
+            this.value = val;
+        }
+
+        //remove and return smallest node
+        private T removeSmallest(ref bool isRemoved) {
+            if (leftNode == null) {
+                return value;
+            }
+
+            T smallest = leftNode.removeSmallest(ref isRemoved);
+
+            if (!isRemoved) {
+                leftNode = null;
+                isRemoved = true;
+            }
+
+            return smallest;
         }
     }
 }
