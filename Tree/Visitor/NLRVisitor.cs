@@ -13,15 +13,15 @@ namespace BinaryTreeProj.Tree {
             return instance;
         }
 
-        protected override void getAllNodesRec<T>(BinaryTree<T> tree, ref List<T> buffer) {
-            buffer.Add(tree.Node);
-            var tmpTree = tree.LeftSubTree;
+        protected override void getAllNodesRec<T>(BinaryNode<T> tree, ref List<T> buffer) {
+            buffer.Add(tree.Value);
+            var tmpTree = tree.LeftNode;
 
             if (tmpTree != null) {
                 getAllNodesRec(tmpTree, ref buffer);
             }
 
-            tmpTree = tree.RightSubTree;
+            tmpTree = tree.RightNode;
 
             if (tmpTree != null) {
                 getAllNodesRec(tmpTree, ref buffer);

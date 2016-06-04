@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tree\BinaryNode.cs" />
     <Compile Include="Tree\BinaryTree.cs" />
     <Compile Include="Tree\Visitor\BinTreeVisitor.cs" />
     <Compile Include="Tree\IntNode.cs" />
@@ -79,7 +80,6 @@
     <Compile Include="Tree\Visitor\LNRVisitor.cs" />
     <Compile Include="Tree\Visitor\LRNVisitor.cs" />
     <Compile Include="Tree\Visitor\NLRVisitor.cs" />
-    <Compile Include="Tree\StringNode.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

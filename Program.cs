@@ -19,26 +19,12 @@ namespace BinaryTreeProj {
 
             BinaryTree<IntNode> tree = createRandomIntTree(10, 0, 20);
 
-            tree.print("", true);
-            var res = tree.getAllValues();
-            foreach (var i in res) {
-                Console.Write(i + ' ');
-            }
-            Console.WriteLine();
-            res = tree.getAllValues(NLRVisitor.get());
-            foreach (var i in res) {
-                Console.Write(i + ' ');
-            }
-            res = tree.getAllValues(LRNVisitor.get());
-            Console.WriteLine();
-            foreach (var i in res) {
-                Console.Write(i + ' ');
-            }
+            tree.print();
         }
 
         public static BinaryTree<IntNode> createRandomIntTree(int nodeCount, int min, int max) {
             Random rnd = new Random();
-            var data = Enumerable.Range(0, max).OrderBy(x => rnd.Next()).Take(nodeCount);
+            var data = Enumerable.Range(0, max).OrderBy(x => rnd.Next()).Take(nodeCount).ToArray();
 
             return new BinaryTree<IntNode>(IntNode.convert(data));
         }

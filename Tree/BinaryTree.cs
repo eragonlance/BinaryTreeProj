@@ -7,195 +7,106 @@ using System.Threading.Tasks;
 
 namespace BinaryTreeProj.Tree {
     class BinaryTree<T> where T : INodeType<T> {
-        private T node = default(T);
-        private BinaryTree<T> leftSubTree = null;
-        private BinaryTree<T> rightSubTree = null;
-
-        public T Node {
-            get {
-                return node;
-            }
-
-            set {
-                node = value;
-            }
-        }
-
-        public BinaryTree<T> LeftSubTree {
-            get {
-                return leftSubTree;
-            }
-
-            set {
-                leftSubTree = value;
-            }
-        }
-
-        public BinaryTree<T> RightSubTree {
-            get {
-                return rightSubTree;
-            }
-
-            set {
-                rightSubTree = value;
-            }
-        }
+        private BinaryNode<T> root = null;
 
         ///<summary>get all values of this tree in String, visit L-N-R by default</summary>
         public IEnumerable<String> getAllValues(BinTreeVisitor visitor = null) {
+            if (isEmpty()) {
+                return Enumerable.Empty<String>();
+            }
+
             if (visitor == null) {
                 visitor = LNRVisitor.get();
             }
 
-            return visitor.visit(this).Select(x => x.ToString());
+            return visitor.visit(root).Select(x => x.ToString());
         }
 
-        public bool insert(T n) {
-            if (Node.Equals(n)) {
-                return false;
+        public bool insert(T node) {
+            if (isEmpty()) {
+                root = new BinaryNode<T>(node);
+                return true;
             }
 
-            if (Node.isLarger(n)) {
-                if (LeftSubTree == null) {
-                    LeftSubTree = new BinaryTree<T>(n);
-                } else {
-                    LeftSubTree.insert(n);
-                }
-            } else {
-                if (RightSubTree == null) {
-                    RightSubTree = new BinaryTree<T>(n);
-                } else {
-                    RightSubTree.insert(n);
-                }
-            }
-
-            return true;
+            return root.insert(node);
         }
 
         ///<summary>count leaf nodes</summary>
         public int countLeafNodes() {
-            int leftCount = LeftSubTree == null ? 0 : LeftSubTree.countLeafNodes();
-            int rightCount = RightSubTree == null ? 0 : RightSubTree.countLeafNodes();
-
-            return (leftCount + rightCount) == 0 ? 1 : leftCount + rightCount;
+            return isEmpty() ? 0 : root.countLeafNodes();
         }
 
         ///<summary>count nodes with only a single subtree</summary>
         public int nSingleOnly() {
-            int leftCount = LeftSubTree == null ? 0 : LeftSubTree.nSingleOnly();
-            int rightCount = RightSubTree == null ? 0 : RightSubTree.nSingleOnly();
-
-            return ((LeftSubTree == null) ^ (RightSubTree == null)) ? leftCount + rightCount + 1 : leftCount + rightCount;
+            return isEmpty() ? 0 : root.nSingleOnly();
         }
 
         ///<summary>count nodes with only right subtree</summary>
         public int nRightOnly() {
-            int leftCount = LeftSubTree == null ? 0 : LeftSubTree.nRightOnly();
-            int rightCount = RightSubTree == null ? 0 : RightSubTree.nRightOnly();
-
-            return (LeftSubTree == null) && (RightSubTree != null) ? leftCount + rightCount + 1 : leftCount + rightCount;
+            return isEmpty() ? 0 : root.countLeafNodes();
         }
 
         ///<summary>count nodes with only left subtree</summary>
         public int nLeftOnly() {
-            int leftCount = LeftSubTree == null ? 0 : LeftSubTree.nLeftOnly();
-            int rightCount = RightSubTree == null ? 0 : RightSubTree.nLeftOnly();
-
-            return (LeftSubTree != null) && (RightSubTree == null) ? leftCount + rightCount + 1 : leftCount + rightCount;
+            return isEmpty() ? 0 : root.nLeftOnly();
         }
 
         ///<summary>count nodes with both subtrees</summary>
         public int nBoth() {
-            int leftCount = LeftSubTree == null ? 0 : LeftSubTree.nBoth();
-            int rightCount = RightSubTree == null ? 0 : RightSubTree.nBoth();
-
-            return (LeftSubTree != null) && (RightSubTree != null) ? leftCount + rightCount + 1 : leftCount + rightCount;
+            return isEmpty() ? 0 : root.nBoth();
         }
 
         ///<summary>return total height of the tree</summary>
         public int getHeight() {
-            int leftHeight = LeftSubTree == null ? 0 : LeftSubTree.getHeight();
-            int rightHeight = RightSubTree == null ? 0 : RightSubTree.getHeight();
-
-            return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
+            return isEmpty() ? 0 : root.getHeight();
         }
 
         ///<summary>count all nodes in the tree</summary>
         public int countNodes() {
-            int leftCount = LeftSubTree == null ? 0 : LeftSubTree.countNodes();
-            int rightCount = RightSubTree == null ? 0 : RightSubTree.countNodes();
-
-            return leftCount + rightCount + 1;
+            return isEmpty() ? 0 : root.countNodes();
         }
 
         ///<summary>count all nodes on a depth of the tree</summary>
-        public int countNodesOnDepth(int depth, int recursiveDepth = 0) {
-            if (depth < recursiveDepth) {
-                return 0;
-            }
-
-            if (depth == recursiveDepth) {
-                return 1;
-            }
-
-            int leftCount = LeftSubTree == null ? 0 : LeftSubTree.countNodesOnDepth(depth, recursiveDepth + 1);
-            int rightCount = RightSubTree == null ? 0 : RightSubTree.countNodesOnDepth(depth, recursiveDepth + 1);
-            return leftCount + rightCount;
+        public int countNodesOnDepth(int depth) {
+            return isEmpty() ? 0 : root.countNodesOnDepth(depth);
         }
 
         ///<summary>length of the path from root node to "n" node</summary>
-        public int pathLength(T n, int recursiveDepth = 0) {
-            if (Node.Equals(n)) {
-                return recursiveDepth;
-            }
-
-            if (Node.isLarger(n) && LeftSubTree != null) {
-                return LeftSubTree.pathLength(n, recursiveDepth + 1);
-            }
-
-            if (!Node.isLarger(n) && RightSubTree != null) {
-                return RightSubTree.pathLength(n, recursiveDepth + 1);
-            }
-
-            return -1;
+        public int pathLength(T node, int recursiveDepth = 0) {
+            return isEmpty() ? 0 : root.pathLength(node);
         }
 
-        public T lookUpLargest() {
-            if (RightSubTree == null) {
-                return Node;
-            } else {
-                return RightSubTree.lookUpLargest();
-            }
+        ///<summary>find node with the largest value</summary>
+        public T findLargest() {
+            return isEmpty() ? default(T) : root.findLargest();
         }
 
-        public void print(string indent, bool last) {
-            Console.Write(indent);
-            if (last) {
-                Console.Write("\\-");
-                indent += "  ";
-            } else {
-                Console.Write("|-");
-                indent += "| ";
-            }
-            Console.WriteLine(Node.ToString());
-
-            if (LeftSubTree != null) {
-                LeftSubTree.print(indent, RightSubTree == null);
-            }
-            if (RightSubTree != null) {
-                RightSubTree.print(indent, true);
-            }
+        ///<summary>find node with the smallest value</summary>
+        public T findSmallest() {
+            return isEmpty() ? default(T) : root.findSmallest();
         }
 
-        public BinaryTree(T n) {
-            Node = n;
+        bool isEmpty() {
+            return root == null;
         }
+
+        public void print() {
+            if (isEmpty()) {
+                return;
+            }
+
+            root.print("", true);
+        }
+
+        public BinaryTree() { }
 
         public BinaryTree(IEnumerable<T> nodes) {
-            Node = nodes.First();
+            if (nodes.Count() > 0) {
+                root = new BinaryNode<T>(nodes.First());
 
-            foreach (var i in nodes) {
-                insert(i);
+                foreach (var i in nodes) {
+                    root.insert(i);
+                }
             }
         }
     }
