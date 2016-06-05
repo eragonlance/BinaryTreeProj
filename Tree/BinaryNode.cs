@@ -58,18 +58,18 @@ namespace BinaryTreeProj.Tree {
             if (this.value.isLarger(val)) {
                 if (LeftNode == null) {
                     LeftNode = new BinaryNode<T>(val);
+                    return true;
                 } else {
-                    LeftNode.insert(val);
+                    return LeftNode.insert(val);
                 }
             } else {
                 if (RightNode == null) {
                     RightNode = new BinaryNode<T>(val);
+                    return true;
                 } else {
-                    RightNode.insert(val);
+                    return RightNode.insert(val);
                 }
             }
-
-            return true;
         }
 
         ///<summary>count leaf nodes</summary>

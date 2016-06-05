@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BinaryTreeProj.Tree {
-    class BinaryTree<T> where T : INodeType<T> {
+    class BinaryTree<T> : Subject<BinaryTree<T>> where T : INodeType<T> {
         private BinaryNode<T> root = null;
 
         ///<summary>get all values of this tree in String, visit L-N-R by default</summary>
@@ -22,13 +22,43 @@ namespace BinaryTreeProj.Tree {
             return visitor.visit(root).Select(x => x.ToString());
         }
 
-        public bool insert(T node) {
+        ///<summary>insert a node, return false if node already existed</summary>
+        public bool insert(T val) {
             if (isEmpty()) {
-                root = new BinaryNode<T>(node);
+                root = new BinaryNode<T>(val);
+                notify();
                 return true;
             }
 
-            return root.insert(node);
+            var isInserted = root.insert(val);
+            if (isInserted) {
+                notify();
+            }
+            return isInserted;
+        }
+
+        ///<summary>insert a range of nodes, return false if they all existed</summary>
+        public bool insertRange(IEnumerable<T> vals) {
+            if(vals.Count() < 1) {
+                return false;
+            }
+
+            bool isInserted = false;
+
+            if (isEmpty()) {
+                root = new BinaryNode<T>(vals.First());
+                isInserted = true;
+            }
+
+            foreach (var i in vals) {
+                isInserted = root.insert(i) || isInserted;
+            }
+
+            if (isInserted) {
+                notify();
+            }
+
+            return isInserted;
         }
 
         ///<summary>count leaf nodes</summary>
@@ -115,6 +145,10 @@ namespace BinaryTreeProj.Tree {
                 root = nodeToReplace;
             }
 
+            if (existVal) {
+                notify();
+            }
+
             return existVal;
         }
 
@@ -126,6 +160,7 @@ namespace BinaryTreeProj.Tree {
         ///<summary>empty this tree</summary>
         public void clear() {
             root = null;
+            notify();
         }
 
         public void print() {

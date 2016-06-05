@@ -24,6 +24,8 @@
         /// </summary>
         private void InitializeComponent() {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.buttonNodeInsert = new System.Windows.Forms.Button();
+            this.textBoxNodeInsert = new System.Windows.Forms.TextBox();
             this.comboBoxVisitTree = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.numericUpDownFindNode = new System.Windows.Forms.NumericUpDown();
@@ -77,6 +79,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.buttonNodeInsert);
+            this.splitContainer1.Panel1.Controls.Add(this.textBoxNodeInsert);
             this.splitContainer1.Panel1.Controls.Add(this.comboBoxVisitTree);
             this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel2);
             this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel1);
@@ -84,6 +88,31 @@
             this.splitContainer1.SplitterDistance = 285;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // buttonNodeInsert
+            // 
+            this.buttonNodeInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonNodeInsert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonNodeInsert.Location = new System.Drawing.Point(206, 461);
+            this.buttonNodeInsert.Name = "buttonNodeInsert";
+            this.buttonNodeInsert.Size = new System.Drawing.Size(75, 23);
+            this.buttonNodeInsert.TabIndex = 5;
+            this.buttonNodeInsert.Text = "Insert";
+            this.buttonNodeInsert.UseVisualStyleBackColor = true;
+            this.buttonNodeInsert.Click += new System.EventHandler(this.buttonNodeInsert_Click);
+            // 
+            // textBoxNodeInsert
+            // 
+            this.textBoxNodeInsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxNodeInsert.Location = new System.Drawing.Point(4, 435);
+            this.textBoxNodeInsert.Name = "textBoxNodeInsert";
+            this.textBoxNodeInsert.Size = new System.Drawing.Size(277, 20);
+            this.textBoxNodeInsert.TabIndex = 4;
+            this.textBoxNodeInsert.Text = "Insert numbers seperated by commas...";
+            this.textBoxNodeInsert.Enter += new System.EventHandler(this.textBoxNodeInsert_Enter);
+            this.textBoxNodeInsert.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNodeInsert_KeyPress);
+            this.textBoxNodeInsert.Leave += new System.EventHandler(this.textBoxNodeInsert_Leave);
             // 
             // comboBoxVisitTree
             // 
@@ -532,6 +561,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -581,6 +611,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownFindNode;
         private System.Windows.Forms.Button buttonFindNode;
         private System.Windows.Forms.ComboBox comboBoxVisitTree;
+        private System.Windows.Forms.TextBox textBoxNodeInsert;
+        private System.Windows.Forms.Button buttonNodeInsert;
     }
 }
 

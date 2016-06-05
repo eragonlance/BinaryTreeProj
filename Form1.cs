@@ -2,29 +2,25 @@
 using BinaryTreeProj.Tree.INodeType;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BinaryTreeProj {
-    public partial class Form1 : Form {
+    partial class Form1 : Form, Observer<BinaryTree<IntNode>> {
         public Form1() {
             InitializeComponent();
         }
 
-        BinaryTree<IntNode> tree = createRandomIntTree(20, 0, 30);
+        BinaryTree<IntNode> tree = createRandomIntTree(10, 0, 20);
 
         private void Form1_Load(object sender, EventArgs e) {
             //this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             comboBoxVisitTree.SelectedIndex = 0;
             AllocConsole();
-            tree.print();
-            update();
+            tree.attach(this);
+            tree.notify();
         }
 
         static BinaryTree<IntNode> createRandomIntTree(int nodeCount, int min, int max) {
@@ -35,7 +31,7 @@ namespace BinaryTreeProj {
             return new BinaryTree<IntNode>(IntNode.convert(data));
         }
 
-        void update() {
+        public void update(BinaryTree<IntNode> s) {
             labelLeafNode.Text = tree.countLeafNodes().ToString();
             labelCountSingle.Text = tree.nSingleOnly().ToString();
             labelCountRight.Text = tree.nRightOnly().ToString();
@@ -45,6 +41,11 @@ namespace BinaryTreeProj {
             labelCountNodes.Text = tree.countNodes().ToString();
             labelCountNodeDepth.Text = tree.countNodesOnDepth((int)numericUpDownDepth.Value).ToString();
             labelPathLength.Text = tree.pathLength(new IntNode((int)numericUpDownPath.Value)).ToString();
+            labelFindLargest.Text = "";
+            labelFindSmallest.Text = "";
+            labelLargestLeft.Text = "";
+            labelSmallestRight.Text = "";
+            tree.print();
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -110,6 +111,28 @@ namespace BinaryTreeProj {
             }
             MessageBox.Show(String.Join(", ", result), comboBoxVisitTree.Text);
             comboBoxVisitTree.SelectedIndex = 0;
+        }
+
+        private void buttonNodeInsert_Click(object sender, EventArgs e) {
+            var numStrings = textBoxNodeInsert.Text.Split(',');
+            tree.insertRange(numStrings.Select(x => new IntNode(int.Parse(x))).ToArray());
+        }
+
+        private void textBoxNodeInsert_KeyPress(object sender, KeyPressEventArgs e) {
+            if (e.KeyChar != Convert.ToChar(Keys.Return)) {
+                return;
+            }
+
+            var numStrings = textBoxNodeInsert.Text.Split(',');
+            tree.insertRange(numStrings.Select(x => new IntNode(int.Parse(x))).ToArray());
+        }
+
+        private void textBoxNodeInsert_Leave(object sender, EventArgs e) {
+            textBoxNodeInsert.Text = "Insert numbers seperated by commas...";
+        }
+
+        private void textBoxNodeInsert_Enter(object sender, EventArgs e) {
+            textBoxNodeInsert.Text = "";
         }
     }
 }
