@@ -160,6 +160,23 @@ namespace BinaryTreeProj.Tree {
             return -1;
         }
 
+        ///<summary>find node with designated value</summary>
+        public bool find(T val) {
+            if (value.Equals(val)) {
+                return true;
+            }
+
+            if(value.isLarger(val) && leftNode != null) {
+                return leftNode.find(val);
+            }
+
+            if(!value.isLarger(val) && rightNode != null) {
+                return rightNode.find(val);
+            }
+
+            return false;
+        }
+
         ///<summary>find node with the largest value</summary>
         public T findLargest() {
             if (rightNode == null) {

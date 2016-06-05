@@ -43,7 +43,7 @@ namespace BinaryTreeProj.Tree {
 
         ///<summary>count nodes with only right subtree</summary>
         public int nRightOnly() {
-            return isEmpty() ? 0 : root.countLeafNodes();
+            return isEmpty() ? 0 : root.nRightOnly();
         }
 
         ///<summary>count nodes with only left subtree</summary>
@@ -72,8 +72,13 @@ namespace BinaryTreeProj.Tree {
         }
 
         ///<summary>length of the path from root node to "n" node</summary>
-        public int pathLength(T node, int recursiveDepth = 0) {
+        public int pathLength(T node) {
             return isEmpty() ? 0 : root.pathLength(node);
+        }
+
+        ///<summary>find node with designated value</summary>
+        public bool find(T val) {
+            return root == null ? false : root.find(val);
         }
 
         ///<summary>find node with the largest value</summary>
