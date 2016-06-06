@@ -24,7 +24,9 @@
         /// </summary>
         private void InitializeComponent() {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.buttonClear = new System.Windows.Forms.Button();
             this.buttonNodeInsert = new System.Windows.Forms.Button();
+            this.buttonRandomize = new System.Windows.Forms.Button();
             this.textBoxNodeInsert = new System.Windows.Forms.TextBox();
             this.comboBoxVisitTree = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -79,7 +81,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.buttonClear);
             this.splitContainer1.Panel1.Controls.Add(this.buttonNodeInsert);
+            this.splitContainer1.Panel1.Controls.Add(this.buttonRandomize);
             this.splitContainer1.Panel1.Controls.Add(this.textBoxNodeInsert);
             this.splitContainer1.Panel1.Controls.Add(this.comboBoxVisitTree);
             this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel2);
@@ -89,17 +93,41 @@
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 0;
             // 
+            // buttonClear
+            // 
+            this.buttonClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonClear.Location = new System.Drawing.Point(198, 519);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(83, 23);
+            this.buttonClear.TabIndex = 6;
+            this.buttonClear.Text = "Clear";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
             // buttonNodeInsert
             // 
             this.buttonNodeInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNodeInsert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonNodeInsert.Location = new System.Drawing.Point(206, 461);
+            this.buttonNodeInsert.Location = new System.Drawing.Point(198, 461);
             this.buttonNodeInsert.Name = "buttonNodeInsert";
-            this.buttonNodeInsert.Size = new System.Drawing.Size(75, 23);
+            this.buttonNodeInsert.Size = new System.Drawing.Size(83, 23);
             this.buttonNodeInsert.TabIndex = 5;
             this.buttonNodeInsert.Text = "Insert";
             this.buttonNodeInsert.UseVisualStyleBackColor = true;
             this.buttonNodeInsert.Click += new System.EventHandler(this.buttonNodeInsert_Click);
+            // 
+            // buttonRandomize
+            // 
+            this.buttonRandomize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRandomize.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRandomize.Location = new System.Drawing.Point(198, 490);
+            this.buttonRandomize.Name = "buttonRandomize";
+            this.buttonRandomize.Size = new System.Drawing.Size(83, 23);
+            this.buttonRandomize.TabIndex = 7;
+            this.buttonRandomize.Text = "Randomize";
+            this.buttonRandomize.UseVisualStyleBackColor = true;
+            this.buttonRandomize.Click += new System.EventHandler(this.buttonRandomize_Click);
             // 
             // textBoxNodeInsert
             // 
@@ -613,6 +641,8 @@
         private System.Windows.Forms.ComboBox comboBoxVisitTree;
         private System.Windows.Forms.TextBox textBoxNodeInsert;
         private System.Windows.Forms.Button buttonNodeInsert;
+        private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonRandomize;
     }
 }
 

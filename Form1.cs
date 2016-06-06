@@ -13,22 +13,23 @@ namespace BinaryTreeProj {
             InitializeComponent();
         }
 
-        BinaryTree<IntNode> tree = createRandomIntTree(10, 0, 20);
+        private static BinaryTree<IntNode> tree = new BinaryTree<IntNode>();
 
         private void Form1_Load(object sender, EventArgs e) {
             //this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             comboBoxVisitTree.SelectedIndex = 0;
             AllocConsole();
+            //attach form to observe and update form whenever changes happen in tree
             tree.attach(this);
-            tree.notify();
+            insertRandom(20, 0, 30);
         }
 
-        static BinaryTree<IntNode> createRandomIntTree(int nodeCount, int min, int max) {
+        static void insertRandom(int nodeCount, int min, int max) {
             Random rnd = new Random();
             var data = Enumerable.Range(0, max).OrderBy(x => rnd.Next()).Take(nodeCount).ToArray();
-            int[] data1 = new int[] { 20, 10, 30, 5, 15, 25, 35, 23, 36, 27 };
+            int[] data1 = new int[] { 20, 10, 30, 5, 15, 25, 35};
 
-            return new BinaryTree<IntNode>(IntNode.convert(data));
+            tree.insertRange(IntNode.convert(data));
         }
 
         public void update(BinaryTree<IntNode> s) {
@@ -133,6 +134,15 @@ namespace BinaryTreeProj {
 
         private void textBoxNodeInsert_Enter(object sender, EventArgs e) {
             textBoxNodeInsert.Text = "";
+        }
+
+        private void buttonRandomize_Click(object sender, EventArgs e) {
+            tree.clear();
+            insertRandom(50, 0, 100);
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e) {
+            tree.clear();
         }
     }
 }

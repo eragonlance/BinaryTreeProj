@@ -24,6 +24,7 @@ namespace BinaryTreeProj.Tree.INodeType {
             this.data = value;
         }
 
+        ///<summary>convert a range of integers to IntNode</summary>
         public static IEnumerable<IntNode> convert(IEnumerable<int> data) {
             foreach (var i in data) {
                 yield return new IntNode(i);
