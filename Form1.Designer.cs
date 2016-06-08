@@ -61,14 +61,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.labelLeafNode = new System.Windows.Forms.Label();
             this.numericUpDownDepth = new System.Windows.Forms.NumericUpDown();
+            this.pictureBoxTree = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFindNode)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPath)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDepth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTree)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -88,6 +91,10 @@
             this.splitContainer1.Panel1.Controls.Add(this.comboBoxVisitTree);
             this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel2);
             this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.pictureBoxTree);
             this.splitContainer1.Size = new System.Drawing.Size(1221, 668);
             this.splitContainer1.SplitterDistance = 285;
             this.splitContainer1.SplitterWidth = 1;
@@ -137,10 +144,7 @@
             this.textBoxNodeInsert.Name = "textBoxNodeInsert";
             this.textBoxNodeInsert.Size = new System.Drawing.Size(277, 20);
             this.textBoxNodeInsert.TabIndex = 4;
-            this.textBoxNodeInsert.Text = "Insert numbers seperated by commas...";
-            this.textBoxNodeInsert.Enter += new System.EventHandler(this.textBoxNodeInsert_Enter);
             this.textBoxNodeInsert.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNodeInsert_KeyPress);
-            this.textBoxNodeInsert.Leave += new System.EventHandler(this.textBoxNodeInsert_Leave);
             // 
             // comboBoxVisitTree
             // 
@@ -579,6 +583,16 @@
             this.numericUpDownDepth.ValueChanged += new System.EventHandler(this.numericUpDownDepth_ValueChanged);
             this.numericUpDownDepth.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numericUpDownDepth_KeyUp);
             // 
+            // pictureBoxTree
+            // 
+            this.pictureBoxTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxTree.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxTree.Name = "pictureBoxTree";
+            this.pictureBoxTree.Size = new System.Drawing.Size(931, 664);
+            this.pictureBoxTree.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxTree.TabIndex = 0;
+            this.pictureBoxTree.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -590,6 +604,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -599,6 +614,7 @@
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPath)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDepth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTree)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -643,6 +659,7 @@
         private System.Windows.Forms.Button buttonNodeInsert;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonRandomize;
+        private System.Windows.Forms.PictureBox pictureBoxTree;
     }
 }
 

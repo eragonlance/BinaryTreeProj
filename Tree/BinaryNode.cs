@@ -1,9 +1,9 @@
 ﻿using BinaryTreeProj.Tree.INodeType;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BinaryTreeProj.Tree {
     class BinaryNode<T> where T : INodeType<T> {
@@ -166,11 +166,11 @@ namespace BinaryTreeProj.Tree {
                 return true;
             }
 
-            if(value.isLarger(val) && leftNode != null) {
+            if (value.isLarger(val) && leftNode != null) {
                 return leftNode.find(val);
             }
 
-            if(!value.isLarger(val) && rightNode != null) {
+            if (!value.isLarger(val) && rightNode != null) {
                 return rightNode.find(val);
             }
 
@@ -225,7 +225,7 @@ namespace BinaryTreeProj.Tree {
                 return existVal;
             }
 
-            if(!value.isLarger(val) && rightNode != null) {
+            if (!value.isLarger(val) && rightNode != null) {
                 bool existVal = rightNode.remove(val, ref nodeToReplace, ref isRemoved);
 
                 if (existVal && !isRemoved) {
@@ -239,23 +239,54 @@ namespace BinaryTreeProj.Tree {
             return false;
         }
 
-        public void print(string indent, bool last) {
-            Console.Write(indent);
-            if (last) {
-                Console.Write("\\-");
-                indent += "  ";
-            } else {
-                Console.Write("|-");
-                indent += "| ";
-            }
-            Console.WriteLine(Value.ToString());
+        ///<summary>draw tree to an Image</summary>
+        public Image Draw(Image nodeCanvas, Font font, Pen pen, Size distance, out int connect, T highlightedNode = default(T)) {
+            var lConnect = 0;
+            var rConnect = 0;
 
-            if (LeftNode != null) {
-                LeftNode.print(indent, RightNode == null);
+            Image lNodeImg = leftNode == null ? null : leftNode.Draw(nodeCanvas, font, pen, distance, out lConnect, highlightedNode);
+            Image rNodeImg = rightNode == null ? null : rightNode.Draw(nodeCanvas, font, pen, distance, out rConnect, highlightedNode);
+
+            var lSize = lNodeImg == null ? new Size((nodeCanvas.Width - distance.Width) / 2, 0) : lNodeImg.Size;
+            var rSize = rNodeImg == null ? new Size((nodeCanvas.Width - distance.Width) / 2, 0) : rNodeImg.Size;
+
+            var childImgHeight = lSize.Height > rSize.Height ? lSize.Height : rSize.Height;
+            var resultImg = new Bitmap(
+                lSize.Width + rSize.Width + distance.Width,
+                nodeCanvas.Size.Height + (leftNode != null || rightNode != null ? childImgHeight + distance.Height : 0)
+                );
+
+            var g = Graphics.FromImage(resultImg);
+            g.SmoothingMode = SmoothingMode.HighQuality;
+
+            var nodeLocation = new Point(lSize.Width - (nodeCanvas.Width - distance.Width) / 2, 0);
+            g.DrawImage(nodeCanvas, nodeLocation);
+
+            if (highlightedNode != null && value.Equals(highlightedNode)) {
+                g.FillEllipse(Brushes.Red, new Rectangle(nodeLocation.X + 1, nodeLocation.Y + 1, nodeCanvas.Width - 2, nodeCanvas.Height - 2));
             }
-            if (RightNode != null) {
-                RightNode.print(indent, true);
+
+            using (var format = new StringFormat()) {
+                format.Alignment = StringAlignment.Center;
+                format.LineAlignment = StringAlignment.Center;
+                g.DrawString(value.ToString(), font, Brushes.Black,
+                    new Rectangle(
+                    nodeLocation.X - nodeCanvas.Width, nodeLocation.Y, nodeCanvas.Width * 3, nodeCanvas.Height), format);
             }
+
+            connect = lSize.Width + distance.Width / 2;
+
+            if (lNodeImg != null) {
+                g.DrawLine(pen, connect, nodeCanvas.Height, lConnect, nodeCanvas.Height + distance.Height);
+                g.DrawImage(lNodeImg, 0, nodeCanvas.Size.Height + distance.Height);
+            }
+
+            if (rNodeImg != null) {
+                g.DrawLine(pen, connect, nodeCanvas.Height, rConnect + lSize.Width + distance.Width, nodeCanvas.Height + distance.Height);
+                g.DrawImage(rNodeImg, lSize.Width + distance.Width, nodeCanvas.Height + distance.Height);
+            }
+
+            return resultImg;
         }
 
         public BinaryNode(T val) {

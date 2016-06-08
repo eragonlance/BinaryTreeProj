@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace BinaryTreeProj {
@@ -13,26 +12,22 @@ namespace BinaryTreeProj {
             InitializeComponent();
         }
 
-        private static BinaryTree<IntNode> tree = new BinaryTree<IntNode>();
+        private static BinaryTree<IntNode> tree = null;
+        private static IntNode highlightedNode = null;
 
         private void Form1_Load(object sender, EventArgs e) {
-            //this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            WindowState = System.Windows.Forms.FormWindowState.Maximized;
             comboBoxVisitTree.SelectedIndex = 0;
-            AllocConsole();
+
             //attach form to observe and update form whenever changes happen in tree
-            tree.attach(this);
-            insertRandom(20, 0, 30);
+            insertRandom(50, 0, 100);
         }
 
-        static void insertRandom(int nodeCount, int min, int max) {
-            Random rnd = new Random();
-            var data = Enumerable.Range(0, max).OrderBy(x => rnd.Next()).Take(nodeCount).ToArray();
-            int[] data1 = new int[] { 20, 10, 30, 5, 15, 25, 35};
+        public void update(BinaryTree<IntNode> t) {
+            if (tree != t) {
+                return;
+            }
 
-            tree.insertRange(IntNode.convert(data));
-        }
-
-        public void update(BinaryTree<IntNode> s) {
             labelLeafNode.Text = tree.countLeafNodes().ToString();
             labelCountSingle.Text = tree.nSingleOnly().ToString();
             labelCountRight.Text = tree.nRightOnly().ToString();
@@ -46,12 +41,15 @@ namespace BinaryTreeProj {
             labelFindSmallest.Text = "";
             labelLargestLeft.Text = "";
             labelSmallestRight.Text = "";
-            tree.print();
+            pictureBoxTree.Image = tree.draw(highlightedNode);
+            GC.Collect();
         }
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool AllocConsole();
+        private void drawHighlight() {
+            pictureBoxTree.Image = tree.draw(highlightedNode);
+            highlightedNode = null;
+            GC.Collect();
+        }
 
         private void numericUpDownDepth_ValueChanged(object sender, EventArgs e) {
             labelCountNodeDepth.Text = tree.countNodesOnDepth((int)numericUpDownDepth.Value).ToString();
@@ -70,28 +68,49 @@ namespace BinaryTreeProj {
         }
 
         private void buttonFindSmallest_Click(object sender, EventArgs e) {
-            var smallestNode = tree.findSmallest();
-            labelFindSmallest.Text = smallestNode == null ? "" : smallestNode.ToString();
+            highlightedNode = tree.findSmallest();
+
+            if (highlightedNode != null) {
+                labelFindSmallest.Text = highlightedNode.ToString();
+                drawHighlight();
+            }
         }
 
         private void buttonFindLargest_Click(object sender, EventArgs e) {
-            var largestNode = tree.findLargest();
-            labelFindLargest.Text = largestNode == null ? "" : largestNode.ToString();
+            highlightedNode = tree.findLargest();
+
+            if (highlightedNode != null) {
+                labelFindLargest.Text = highlightedNode.ToString();
+                drawHighlight();
+            }
         }
 
         private void buttonLargestLeft_Click(object sender, EventArgs e) {
-            var largestLeft = tree.findLeftLargest();
-            labelLargestLeft.Text = largestLeft == null ? "" : largestLeft.ToString();
+            highlightedNode = tree.findLeftLargest();
+
+            if (highlightedNode != null) {
+                labelLargestLeft.Text = highlightedNode.ToString();
+                drawHighlight();
+            }
         }
 
         private void buttonSmallestRight_Click(object sender, EventArgs e) {
-            var smallestRight = tree.findRightSmallest();
-            labelSmallestRight.Text = smallestRight == null ? "" : smallestRight.ToString();
+            highlightedNode = tree.findRightSmallest();
+
+            if (highlightedNode != null) {
+                labelSmallestRight.Text = highlightedNode.ToString();
+                drawHighlight();
+            }
         }
 
         private void buttonFindNode_Click(object sender, EventArgs e) {
-            bool result = tree.find(new IntNode((int)numericUpDownFindNode.Value));
-            MessageBox.Show(result.ToString(), "Result");
+            var node = new IntNode((int)numericUpDownFindNode.Value);
+
+            if (tree.find(node)) {
+                highlightedNode = node;
+            }
+
+            drawHighlight();
         }
 
         private void comboBoxVisitTree_SelectedIndexChanged(object sender, EventArgs e) {
@@ -116,7 +135,23 @@ namespace BinaryTreeProj {
 
         private void buttonNodeInsert_Click(object sender, EventArgs e) {
             var numStrings = textBoxNodeInsert.Text.Split(',');
-            tree.insertRange(numStrings.Select(x => new IntNode(int.Parse(x))).ToArray());
+            var numList = new List<int>();
+
+            foreach (var i in numStrings) {
+                int n;
+
+                if (int.TryParse(i, out n)) {
+                    numList.Add(n);
+                }
+            }
+
+            if (numList.Count() < numStrings.Count()) {
+                MessageBox.Show("Not a valid sequence. Please type a list of numbers seperated by a comma.");
+                return;
+            }
+
+            tree.insertRange(numList.Select(x => new IntNode(x)).ToArray());
+            textBoxNodeInsert.Text = "";
         }
 
         private void textBoxNodeInsert_KeyPress(object sender, KeyPressEventArgs e) {
@@ -124,16 +159,7 @@ namespace BinaryTreeProj {
                 return;
             }
 
-            var numStrings = textBoxNodeInsert.Text.Split(',');
-            tree.insertRange(numStrings.Select(x => new IntNode(int.Parse(x))).ToArray());
-        }
-
-        private void textBoxNodeInsert_Leave(object sender, EventArgs e) {
-            textBoxNodeInsert.Text = "Insert numbers seperated by commas...";
-        }
-
-        private void textBoxNodeInsert_Enter(object sender, EventArgs e) {
-            textBoxNodeInsert.Text = "";
+            buttonNodeInsert_Click(sender, new EventArgs());
         }
 
         private void buttonRandomize_Click(object sender, EventArgs e) {
@@ -142,7 +168,20 @@ namespace BinaryTreeProj {
         }
 
         private void buttonClear_Click(object sender, EventArgs e) {
+            highlightedNode = null;
             tree.clear();
+        }
+
+        static void insertRandom(int nodeCount, int min, int max) {
+            Random rnd = new Random();
+            var data = Enumerable.Range(0, max).OrderBy(x => rnd.Next()).Take(nodeCount).ToArray();
+
+            tree.insertRange(IntNode.convert(data));
+        }
+
+        public Form1(BinaryTree<IntNode> t) : this() {
+            tree = t;
+            t.attach(this);
         }
     }
 }

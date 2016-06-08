@@ -1,13 +1,16 @@
 ﻿using BinaryTreeProj.Tree.INodeType;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BinaryTreeProj.Tree {
     class BinaryTree<T> : Subject<BinaryTree<T>> where T : INodeType<T> {
         private BinaryNode<T> root = null;
+        private Bitmap nodeCanvas = new Bitmap(64, 64);
+        private Font font = new Font("Verdana", 20);
+        private Pen pen = new Pen(Color.Black, 1.5f);
 
         ///<summary>get all values of this tree in String, visit L-N-R by default</summary>
         public IEnumerable<String> getAllValues(BinTreeVisitor visitor = null) {
@@ -39,7 +42,7 @@ namespace BinaryTreeProj.Tree {
 
         ///<summary>insert a range of nodes, return false if they all existed</summary>
         public bool insertRange(IEnumerable<T> vals) {
-            if(vals.Count() < 1) {
+            if (vals.Count() < 1) {
                 return false;
             }
 
@@ -163,17 +166,22 @@ namespace BinaryTreeProj.Tree {
             notify();
         }
 
-        public void print() {
-            if (isEmpty()) {
-                return;
-            }
-
-            root.print("", true);
+        ///<summary>draw tree to an image</summary>
+        public Image draw(T highlightedNode) {
+            int connect;
+            var distance = new Size(nodeCanvas.Width / 4, nodeCanvas.Height);
+            return root == null ? null : root.Draw(nodeCanvas, font, pen, distance, out connect, highlightedNode);
         }
 
-        public BinaryTree() { }
+        public BinaryTree() {
+            var g = Graphics.FromImage(nodeCanvas);
+            g.SmoothingMode = SmoothingMode.HighQuality;
+            var ellipseFrame = new Rectangle(1, 1, nodeCanvas.Width - 2, nodeCanvas.Height - 2);
+            g.FillEllipse(Brushes.LightGreen, ellipseFrame);
+            g.DrawEllipse(pen, ellipseFrame);
+        }
 
-        public BinaryTree(IEnumerable<T> nodes) {
+        public BinaryTree(IEnumerable<T> nodes) : this() {
             if (nodes.Count() > 0) {
                 root = new BinaryNode<T>(nodes.First());
 
