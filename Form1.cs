@@ -51,6 +51,18 @@ namespace BinaryTreeProj {
             GC.Collect();
         }
 
+        static void insertRandom(int nodeCount, int min, int max) {
+            Random rnd = new Random();
+            var data = Enumerable.Range(0, max).OrderBy(x => rnd.Next()).Take(nodeCount).ToArray();
+
+            tree.insertRange(IntNode.convert(data));
+        }
+
+        public Form1(BinaryTree<IntNode> t) : this() {
+            tree = t;
+            t.attach(this);
+        }
+
         private void numericUpDownDepth_ValueChanged(object sender, EventArgs e) {
             labelCountNodeDepth.Text = tree.countNodesOnDepth((int)numericUpDownDepth.Value).ToString();
         }
@@ -172,16 +184,8 @@ namespace BinaryTreeProj {
             tree.clear();
         }
 
-        static void insertRandom(int nodeCount, int min, int max) {
-            Random rnd = new Random();
-            var data = Enumerable.Range(0, max).OrderBy(x => rnd.Next()).Take(nodeCount).ToArray();
-
-            tree.insertRange(IntNode.convert(data));
-        }
-
-        public Form1(BinaryTree<IntNode> t) : this() {
-            tree = t;
-            t.attach(this);
+        private void buttonRemove_Click(object sender, EventArgs e) {
+            tree.remove(new IntNode((int)numericUpDownRemove.Value));
         }
     }
 }

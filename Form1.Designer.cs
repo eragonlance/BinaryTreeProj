@@ -62,6 +62,8 @@
             this.labelLeafNode = new System.Windows.Forms.Label();
             this.numericUpDownDepth = new System.Windows.Forms.NumericUpDown();
             this.pictureBoxTree = new System.Windows.Forms.PictureBox();
+            this.buttonRemove = new System.Windows.Forms.Button();
+            this.numericUpDownRemove = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -72,6 +74,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPath)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDepth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTree)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRemove)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -104,7 +107,7 @@
             // 
             this.buttonClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClear.Location = new System.Drawing.Point(198, 519);
+            this.buttonClear.Location = new System.Drawing.Point(198, 565);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(83, 23);
             this.buttonClear.TabIndex = 6;
@@ -116,7 +119,7 @@
             // 
             this.buttonNodeInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNodeInsert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonNodeInsert.Location = new System.Drawing.Point(198, 461);
+            this.buttonNodeInsert.Location = new System.Drawing.Point(198, 507);
             this.buttonNodeInsert.Name = "buttonNodeInsert";
             this.buttonNodeInsert.Size = new System.Drawing.Size(83, 23);
             this.buttonNodeInsert.TabIndex = 5;
@@ -128,7 +131,7 @@
             // 
             this.buttonRandomize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRandomize.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRandomize.Location = new System.Drawing.Point(198, 490);
+            this.buttonRandomize.Location = new System.Drawing.Point(198, 536);
             this.buttonRandomize.Name = "buttonRandomize";
             this.buttonRandomize.Size = new System.Drawing.Size(83, 23);
             this.buttonRandomize.TabIndex = 7;
@@ -140,7 +143,7 @@
             // 
             this.textBoxNodeInsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxNodeInsert.Location = new System.Drawing.Point(4, 435);
+            this.textBoxNodeInsert.Location = new System.Drawing.Point(4, 481);
             this.textBoxNodeInsert.Name = "textBoxNodeInsert";
             this.textBoxNodeInsert.Size = new System.Drawing.Size(277, 20);
             this.textBoxNodeInsert.TabIndex = 4;
@@ -155,7 +158,7 @@
             "Left-Node-Right",
             "Node-Left-Right",
             "Left-Right-Node"});
-            this.comboBoxVisitTree.Location = new System.Drawing.Point(3, 396);
+            this.comboBoxVisitTree.Location = new System.Drawing.Point(4, 454);
             this.comboBoxVisitTree.Name = "comboBoxVisitTree";
             this.comboBoxVisitTree.Size = new System.Drawing.Size(121, 21);
             this.comboBoxVisitTree.TabIndex = 3;
@@ -166,7 +169,7 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.58363F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.41637F));
-            this.tableLayoutPanel2.Controls.Add(this.numericUpDownFindNode, 1, 4);
+            this.tableLayoutPanel2.Controls.Add(this.buttonRemove, 0, 5);
             this.tableLayoutPanel2.Controls.Add(this.buttonFindNode, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.labelSmallestRight, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.buttonSmallestRight, 0, 3);
@@ -176,6 +179,8 @@
             this.tableLayoutPanel2.Controls.Add(this.buttonFindLargest, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.buttonFindSmallest, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.labelFindSmallest, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.numericUpDownFindNode, 1, 4);
+            this.tableLayoutPanel2.Controls.Add(this.numericUpDownRemove, 1, 5);
             this.tableLayoutPanel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 229);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -186,14 +191,14 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(281, 161);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(281, 189);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // numericUpDownFindNode
             // 
-            this.numericUpDownFindNode.Dock = System.Windows.Forms.DockStyle.Left;
+            this.numericUpDownFindNode.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.numericUpDownFindNode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownFindNode.Location = new System.Drawing.Point(161, 130);
+            this.numericUpDownFindNode.Location = new System.Drawing.Point(161, 132);
             this.numericUpDownFindNode.Maximum = new decimal(new int[] {
             9999999,
             0,
@@ -593,6 +598,32 @@
             this.pictureBoxTree.TabIndex = 0;
             this.pictureBoxTree.TabStop = false;
             // 
+            // buttonRemove
+            // 
+            this.buttonRemove.AutoSize = true;
+            this.buttonRemove.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonRemove.Location = new System.Drawing.Point(3, 162);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(152, 26);
+            this.buttonRemove.TabIndex = 21;
+            this.buttonRemove.Text = "Remove node with value";
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+            // 
+            // numericUpDownRemove
+            // 
+            this.numericUpDownRemove.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.numericUpDownRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownRemove.Location = new System.Drawing.Point(161, 164);
+            this.numericUpDownRemove.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDownRemove.Name = "numericUpDownRemove";
+            this.numericUpDownRemove.Size = new System.Drawing.Size(56, 22);
+            this.numericUpDownRemove.TabIndex = 22;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -615,6 +646,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPath)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDepth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTree)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRemove)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -660,6 +692,8 @@
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonRandomize;
         private System.Windows.Forms.PictureBox pictureBoxTree;
+        private System.Windows.Forms.Button buttonRemove;
+        private System.Windows.Forms.NumericUpDown numericUpDownRemove;
     }
 }
 
