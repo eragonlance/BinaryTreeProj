@@ -19,7 +19,6 @@ namespace BinaryTreeProj {
             WindowState = System.Windows.Forms.FormWindowState.Maximized;
             comboBoxVisitTree.SelectedIndex = 0;
 
-            //attach form to observe and update form whenever changes happen in tree
             insertRandom(50, 0, 100);
         }
 
