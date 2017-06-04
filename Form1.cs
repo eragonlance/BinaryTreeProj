@@ -10,6 +10,7 @@ namespace BinaryTreeProj {
     partial class Form1 : Form, Observer<BinaryTree<IntNode>> {
         public Form1() {
             InitializeComponent();
+            this.Text = "Binary Tree";
         }
 
         private static BinaryTree<IntNode> tree = null;
